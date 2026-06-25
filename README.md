@@ -6,13 +6,19 @@ A simple engine for making CLI dungeon crawler games.
 
 This is a standard CMake project.
 
-On Windows, download, install and open Visual Studio and install the appropriate tools (blank project -> Tools -> Get Tools and Features -> Desktop development with C++), then open the folder and click the green arrow to run.
+On Windows, download, install and open Visual Studio and install the
+appropriate tools (blank project -> Tools -> Get Tools and Features -> Desktop
+development with C++), then open the folder and click the green arrow to run.
 
-On Linux, install CMake through your package manager and create a 'build' folder inside of the repo's directory. Using a terminal inside of the 'build' folder, run 'cmake ..' followed by 'cmake --build .', then simply './dungeon-crawler' to run.
+On Linux, install CMake through your package manager and create a 'build'
+folder inside of the repo's directory. Using a terminal inside of the 'build'
+folder, run 'cmake ..' followed by 'cmake --build .', then simply
+'./dungeon-crawler' to run.
 
 ## How to configure
 
-The configuration takes place in a file generated in the same directory by the executable. It looks like this by default:
+The configuration takes place in a file generated in the same directory by the
+executable. It looks like this by default:
 
 ```
 [ROOMS]
@@ -49,15 +55,25 @@ CHALLENGE: None
 You arise from a deep rest. There's a door up north.
 ```
 
-There is some flexibility in the format, though you must use the exact capitalisation as the above template. The room connection lines (``NORTH: None``, ``SOUTH: 100``) must be indented with tabs, but the 'CONNECTIONS:' line may be omitted.
+There is some flexibility in the format, though you must use the exact
+capitalisation as the above template. The room connection lines (``NORTH:
+None``, ``SOUTH: 100``) must be indented with tabs, but the'CONNECTIONS:'
+line may be omitted.
 
-Room number 1 is reserved for the final room of your game. Once this room is entered, its message is displayed followed by prompt asking you to exit the program.
+Room number 1 is reserved for the final room of your game. Once this room is
+entered, its message is displayed followed by prompt asking you to exit the
+program.
 
-As good practise, you should identify all other rooms by room number 10 or greater.
+As good practise, you should identify all other rooms by room number 10 or
+greater.
 
-Currently, there are two types of challenges: physical and puzzle. The physical challenge spawns a delinquent in the room whom you must attack to proceed. The puzzle challenge spawns a note with a maths problem you must solve to proceed.
+Currently, there are two types of challenges: physical and puzzle. The
+physical challenge spawns a delinquent in the room whom you must attack to
+proceed. The puzzle challenge spawns a note with a maths problem you must
+solve to proceed.
 
-Add new rooms by adding more of these blocks after the last one, above the ``[INTRODUCTORY TEXT]`` line:
+Add new rooms by adding more of these blocks after the last one, above the
+``[INTRODUCTORY TEXT]`` line:
 
 ```
 ROOM NUMBER: 102
