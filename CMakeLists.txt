@@ -10,6 +10,12 @@ else()
     add_compile_options(-Wall -Wextra -Wpedantic -Werror)
 endif()
 
+set(DEBUG False)
+
+if (${DEBUG})
+    add_compile_definitions(DEBUG)
+endif()
+
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED True)
 

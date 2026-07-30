@@ -65,7 +65,10 @@ int main(void) {
 		util_wait_for_user_input(user_input);
 		util_sanitise_input(user_input);
 		play(&game, user_input);
-		//print_debug_info(&game);
+
+		#ifdef DEBUG
+		print_debug_info(&game);
+		#endif
 	}
 
 	return EXIT_SUCCESS;
