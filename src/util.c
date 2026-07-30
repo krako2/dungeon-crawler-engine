@@ -9,21 +9,23 @@
 void util_sanitise_input(char *user_input) {
 	size_t read = 0;
 	size_t write = 0;
+
 	while (user_input[read] != '\0') {
 		if (isspace(user_input[read])) {
 			++read;
 			continue;
 		}
 
-		if (user_input[read] >= 'A' && 
-		    user_input[read] <= 'Z') {
+		if (user_input[read] >= 'A' && user_input[read] <= 'Z') {
 			user_input[read] += 32;
 		}
 
 		user_input[write] = user_input[read];
+
 		++write;
 		++read;
 	}
+
 	user_input[write] = '\0';
 }
 
@@ -38,6 +40,7 @@ void util_leave(void) {
 		}
 
 		char *newline_position = strchr(user_input, '\n');
+
 		if (newline_position == NULL) {
 			while(getchar() != '\n');
 		}
@@ -81,6 +84,7 @@ size_t util_string_to_size_t(char *text) {
 		if (text[i] >= '0' && text[i] <= '9') {
 			value = (value * 10) + text[i] - '0';
 		}
+
 		++i;
 	}
 

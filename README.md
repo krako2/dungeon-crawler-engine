@@ -57,7 +57,7 @@ You arise from a deep rest. There's a door up north.
 
 There is some flexibility in the format, though you must use the exact
 capitalisation as the above template. The room connection lines (``NORTH:
-None``, ``SOUTH: 100``) must be indented with tabs, but the'CONNECTIONS:'
+None``, ``SOUTH: 100``) must be indented with tabs, but the 'CONNECTIONS:'
 line may be omitted.
 
 Room number 1 is reserved for the final room of your game. Once this room is
