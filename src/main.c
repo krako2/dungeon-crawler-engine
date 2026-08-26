@@ -10,38 +10,38 @@
 #include "debug.h"
 
 int main(void) {
-	static struct game game = {0};
+    static struct game game = {0};
 
-	load_game_from_config_file(&game);
-	
-	print_help_text();
-	printf("Type 'help' to bring up these instructions (after giving your name).\n\n");
+    load_game_from_config_file(&game);
 
-	char user_input[MAX_RESPONSE_LENGTH] = {'\0'};
+    print_help_text();
+    printf("Type 'help' to bring up these instructions (after giving your name).\n\n");
 
-	while (user_input[0] == '\0') {
-		printf("What is your name? ");
-		util_wait_for_user_input(user_input);
-		util_sanitise_input(user_input);
-		user_input[0] = toupper(user_input[0]);
-	}
+    char user_input[MAX_RESPONSE_LENGTH] = {'\0'};
 
-	snprintf(game.player.name, MAX_RESPONSE_LENGTH, "%s", user_input);
+    while (user_input[0] == '\0') {
+        printf("What is your name? ");
+        util_wait_for_user_input(user_input);
+        util_sanitise_input(user_input);
+        user_input[0] = toupper(user_input[0]);
+    }
 
-	game.player.room = game.rooms[0];
+    snprintf(game.player.name, MAX_RESPONSE_LENGTH, "%s", user_input);
 
-	printf("\n%s\n\n", game.introductory_text);
-	
-	while (1) {
-		printf("What would you like to do? ");
-		util_wait_for_user_input(user_input);
-		util_sanitise_input(user_input);
-		play(&game, user_input);
+    game.player.room = game.rooms[0];
 
-		#ifdef DEBUG
-		print_debug_info(&game);
-		#endif
-	}
+    printf("\n%s\n\n", game.introductory_text);
 
-	return EXIT_SUCCESS;
+    while (1) {
+        printf("What would you like to do? ");
+        util_wait_for_user_input(user_input);
+        util_sanitise_input(user_input);
+        play(&game, user_input);
+
+        #ifdef DEBUG
+        print_debug_info(&game);
+        #endif
+    }
+
+    return EXIT_SUCCESS;
 }
