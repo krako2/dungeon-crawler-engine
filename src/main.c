@@ -18,7 +18,7 @@ int main(void) {
 
     while (user_input[0] == '\0') {
         printf("What is your name? ");
-        util_wait_for_user_input(user_input);
+        util_get_user_input(user_input);
         util_sanitise_input(user_input);
         user_input[0] = (char)toupper((int)user_input[0]);
     }
@@ -30,7 +30,7 @@ int main(void) {
 
     while (1) {
         printf("What would you like to do? ");
-        util_wait_for_user_input(user_input);
+        util_get_user_input(user_input);
         util_sanitise_input(user_input);
         play(&game, user_input);
 
@@ -38,6 +38,4 @@ int main(void) {
         print_debug_info(&game);
 #endif
     }
-
-    return 0;
 }

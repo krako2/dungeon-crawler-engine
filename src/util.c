@@ -52,7 +52,7 @@ void util_leave(void) {
     exit(-1);
 }
 
-void util_wait_for_user_input(char *user_input) {
+void util_get_user_input(char *user_input) {
     char *newline_position;
 
     if (fgets(user_input, GAME_MAX_RESPONSE_LENGTH, stdin) == NULL) {

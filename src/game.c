@@ -30,7 +30,7 @@ static void physical_challenge(void) {
     while (delinquent.health > 0) {
         printf("How do you respond? ");
 
-        util_wait_for_user_input(user_input);
+        util_get_user_input(user_input);
         util_sanitise_input(user_input);
 
         if (strncmp(user_input, "attack", 6) != 0) {
@@ -62,7 +62,7 @@ static void puzzle_challenge(void) {
 
     while (util_string_to_size_t(user_input) != answer) {
         printf("What could it possibly mean? ");
-        util_wait_for_user_input(user_input);
+        util_get_user_input(user_input);
         util_sanitise_input(user_input);
     }
 
