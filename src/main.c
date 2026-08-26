@@ -13,7 +13,6 @@ int main(void) {
     char user_input[GAME_MAX_RESPONSE_LENGTH] = {'\0'};
 
     load_game_from_config_file(&game);
-
     print_help_text();
     printf("Type 'help' to bring up these instructions (after giving your name).\n\n");
 
@@ -25,7 +24,6 @@ int main(void) {
     }
 
     sprintf(game.player.name, "%s", user_input);
-
     game.player.room = game.rooms[0];
 
     printf("\n%s\n\n", game.introductory_text);
