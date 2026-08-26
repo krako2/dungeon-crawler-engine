@@ -103,8 +103,8 @@ void game_start(struct game *game, char *user_input) {
         util_sanitise_input(user_input);
         game_play(game, user_input);
 
-#ifdef DEBUG
+        #ifdef DEBUG
         debug_print_game_data(game);
-#endif
+        #endif
     }
 }
