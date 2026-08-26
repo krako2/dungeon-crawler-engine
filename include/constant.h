@@ -24,7 +24,7 @@ enum direction {
 
 struct room {
     size_t room_number;
-    size_t connections[4]; // North, East, South, West
+    size_t connections[4]; /* North, East, South, West */
     enum challenge challenges[MAX_CHALLENGES_PER_ROOM];
     char message[MAX_ROOM_MESSAGE_LENGTH];
 };

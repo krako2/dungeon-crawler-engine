@@ -9,7 +9,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_compile_definitions(DEBUG)
 endif()
 
-set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD 90)
 set(CMAKE_C_STANDARD_REQUIRED True)
 set(CMAKE_C_EXTENSIONS False)
 

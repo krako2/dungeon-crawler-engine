@@ -65,13 +65,14 @@ void util_wait_for_user_input(char *user_input) {
 
 void util_trim_start(char *text, size_t characters) {
     size_t i = 0;
+    size_t j;
 
     while (text[i + characters] != '\0') {
         text[i] = text[i + characters];
         ++i;
     }
 
-    for (size_t j = 0; j < characters; ++j) {
+    for (j = 0; j < characters; ++j) {
         text[i + j] = '\0';
     }
 }

@@ -70,13 +70,14 @@ static void puzzle_challenge(void) {
 
 static void clear_challenge(struct game *game) {
     size_t i;
+    size_t j;
 
     for (i = 0; i < MAX_ROOMS; ++i) {
         if (game->player.room.room_number != game->rooms[i].room_number) {
             continue;
         }
     
-        for (size_t j = 0; j < MAX_CHALLENGES_PER_ROOM; ++j) {
+        for (j = 0; j < MAX_CHALLENGES_PER_ROOM; ++j) {
             if (game->rooms[i].challenges[j] != NONE) {
                 game->rooms[i].challenges[j] = NONE;
                 game->player.room.challenges[j] = NONE;
@@ -94,14 +95,14 @@ static void clear_challenge(struct game *game) {
 }
 
 static void move(struct game *game, enum direction direction) {
+    size_t i;
     size_t next_room = game->player.room.connections[direction];
 
     if (next_room == 0) {
         printf("\nYou hit a wall. Ouch!\n");
         return;
     }
-
-    size_t i;
+    
     for (i = 0; i < MAX_ROOMS; ++i) {
         if (game->rooms[i].room_number == next_room) {
             game->player.room = game->rooms[i];
@@ -152,7 +153,8 @@ void play(struct game *game, char *user_input) {
         util_leave();
     }
 
-    for (size_t i = 0; i < MAX_CHALLENGES_PER_ROOM; ++i) {
+    size_t i;
+    for (i = 0; i < MAX_CHALLENGES_PER_ROOM; ++i) {
         switch (game->player.room.challenges[i]) {
         case NONE:
             break;
