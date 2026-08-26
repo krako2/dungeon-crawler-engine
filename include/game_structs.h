@@ -3,8 +3,8 @@
 
 #include <stddef.h>
 
-#include "file-defines.h"
-#include "game-defines.h"
+#include "file_defines.h"
+#include "game_defines.h"
 #include "enums.h"
 
 struct room {
