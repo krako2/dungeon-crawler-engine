@@ -1,14 +1,9 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include <stdint.h>
 #include <limits.h>
 
-#include "file_macros.h"
 #include "file_structs.h"
-#include "game_macros.h"
 #include "game_structs.h"
-#include "game_enums.h"
 #include "util.h"
 #include "file.h"
 

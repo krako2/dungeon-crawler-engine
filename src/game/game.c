@@ -1,20 +1,12 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include <stdint.h>
 #include <ctype.h>
-#include <stdbool.h>
-#include <time.h>
 
-#include "file_macros.h"
-#include "file_structs.h"
-#include "game_macros.h"
 #include "game_structs.h"
-#include "game_enums.h"
 #include "util.h"
-#include "game.h"
 #include "challenge.h"
 #include "debug.h"
+#include "game.h"
 
 static void game_move_player(struct game *game, enum direction direction) {
     size_t i;
