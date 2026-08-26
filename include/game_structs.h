@@ -5,7 +5,7 @@
 
 #include "file_macros.h"
 #include "game_macros.h"
-#include "enums.h"
+#include "game_enums.h"
 
 struct room {
     char message[FILE_MAX_ROOM_MESSAGE_LENGTH];

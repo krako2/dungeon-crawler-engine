@@ -5,6 +5,6 @@
 #include "file_structs.h"
 #include "game_macros.h"
 #include "game_structs.h"
-#include "enums.h"
+#include "game_enums.h"
 
 #endif
