@@ -37,9 +37,9 @@ void print_debug_info(struct game *game) {
 	}
 }
 
-struct game game = {0};
-
 int main(void) {
+	static struct game game = {0};
+
 	load_game_from_config_file(&game);
 	
 	print_help_text();
