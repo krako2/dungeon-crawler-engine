@@ -2,19 +2,20 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
-#include <stdbool.h>
 #include <limits.h>
 
 #include "constant.h"
+#include "game.h"
+#include "file.h"
 
 #include "util.h"
 
 struct parse_data {
-    bool is_reading_introductory_text;
     size_t room_counter;
     size_t room_challenge_counter;
     size_t line_counter;
     size_t line_character_counter;
+    int is_reading_introductory_text;
     char line[MAX_FILE_LINE_LENGTH];
     char current_character;
 };
@@ -26,18 +27,9 @@ static void write_template_config_file(FILE *config_file) {
     "ROOM NUMBER: 100\n"
     "MESSAGE: You enter a dark room. A light glimmers up north.\n"
     "CONNECTIONS:\n"
-    "\tNORTH: 101\n"
+    "\tNORTH: 1\n"
     "\tEAST: None\n"
     "\tSOUTH: None\n"
-    "\tWEST: None\n"
-    "CHALLENGE: None\n"
-    "\n"
-    "ROOM NUMBER: 101\n"
-    "MESSAGE: You enter a dingy living room. It is not well-kept.\n"
-    "CONNECTIONS:\n"
-    "\tNORTH: None\n"
-    "\tEAST: 1\n"
-    "\tSOUTH: 100\n"
     "\tWEST: None\n"
     "CHALLENGE: Physical, Puzzle\n"
     "\n"
@@ -120,7 +112,7 @@ static void parse_config_file_into_game(FILE *config_file, struct game *game) {
     struct parse_data parse_data = {0};
     parse_data.line_counter = 1;
 
-    while ((parse_data.current_character = fgetc(config_file)) != EOF) {
+    while ((parse_data.current_character = (char) fgetc(config_file)) != EOF) {
         parse_data.line[parse_data.line_character_counter] = parse_data.current_character;
         parse_data.line_character_counter++;
 
@@ -144,7 +136,7 @@ static void parse_config_file_into_game(FILE *config_file, struct game *game) {
             game->rooms[parse_data.room_counter].room_number = util_string_to_size_t(parse_data.line);
         } else if (strncmp(parse_data.line, "MESSAGE: ", 9) == 0) {
             util_trim_start(parse_data.line, 9);
-            snprintf(game->rooms[parse_data.room_counter].message, MAX_ROOM_MESSAGE_LENGTH, "%s", parse_data.line);
+            sprintf(game->rooms[parse_data.room_counter].message, "%s", parse_data.line);
         } else if (strncmp(parse_data.line, "\tNORTH: ", 8) == 0) {
             game->rooms[parse_data.room_counter].connections[NORTH] = util_string_to_size_t(parse_data.line);
         } else if (strncmp(parse_data.line, "\tEAST: ", 7) == 0) {
@@ -157,7 +149,7 @@ static void parse_config_file_into_game(FILE *config_file, struct game *game) {
             util_trim_start(parse_data.line, 11);
             parse_challenges_into_room(&parse_data, game);
         } else if (strncmp(parse_data.line, "[INTRODUCTORY TEXT]", 19) == 0) {
-            parse_data.is_reading_introductory_text = true;
+            parse_data.is_reading_introductory_text = 1;
         }
 
         move_to_next_line(&parse_data);

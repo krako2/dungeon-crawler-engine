@@ -7,6 +7,7 @@
 #include <time.h>
 
 #include "constant.h"
+#include "game.h"
 
 #include "util.h"
 
@@ -15,17 +16,17 @@ struct physical_challenge {
 };
 
 struct puzzle_challenge {
-    int first;
-    int second;
+    unsigned first;
+    unsigned second;
 };
 
 static void physical_challenge(void) {
     struct physical_challenge delinquent;
+    char user_input[MAX_RESPONSE_LENGTH] = {'\0'};
+
     delinquent.health = 2;
 
     printf("A delinquent appears! They look at you menacingly.\n");
-
-    char user_input[MAX_RESPONSE_LENGTH] = {'\0'};
 
     while (delinquent.health > 0) {
         printf("How do you respond? ");
@@ -47,17 +48,18 @@ static void physical_challenge(void) {
 }
 
 static void puzzle_challenge(void) {
-    srand(time(NULL));
-
+    char user_input[MAX_RESPONSE_LENGTH] = {'\0'};
     struct puzzle_challenge puzzle;
-    puzzle.first = rand() % 100 + 1;
-    puzzle.second = rand() % 100 + 1;
-    size_t answer = puzzle.first * puzzle.second;
+    size_t answer;
+
+    srand((unsigned) time(NULL));
+
+    puzzle.first = (unsigned) rand() % 100u + 1u;
+    puzzle.second = (unsigned) rand() % 100u + 1u;
+    answer = puzzle.first * puzzle.second;
 
     printf("There is a note on the floor. You pick it up.\n");
-    printf("It says, '%d x %d'.\n", puzzle.first, puzzle.second);
-
-    char user_input[MAX_RESPONSE_LENGTH] = {'\0'};
+    printf("It says, '%u x %u'.\n", puzzle.first, puzzle.second);
 
     while (util_string_to_size_t(user_input) != answer) {
         printf("What could it possibly mean? ");
@@ -129,6 +131,8 @@ void print_help_text(void) {
 }
 
 void play(struct game *game, char *user_input) {
+    size_t i;
+
     if (strncmp(user_input, "help", 4) == 0) {
         printf("\n");
         print_help_text();
@@ -153,7 +157,6 @@ void play(struct game *game, char *user_input) {
         util_leave();
     }
 
-    size_t i;
     for (i = 0; i < MAX_CHALLENGES_PER_ROOM; ++i) {
         switch (game->player.room.challenges[i]) {
         case NONE:
@@ -165,6 +168,8 @@ void play(struct game *game, char *user_input) {
         case PUZZLE:
             puzzle_challenge();
             clear_challenge(game);
+            break;
+        default:
             break;
         }
     }
