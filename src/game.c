@@ -9,94 +9,10 @@
 #include "constants.h"
 #include "util.h"
 #include "game.h"
+#include "challenge.h"
 #include "debug.h"
 
-struct physical_challenge {
-    int health;
-};
-
-struct puzzle_challenge {
-    unsigned first;
-    unsigned second;
-};
-
-static void physical_challenge(void) {
-    struct physical_challenge delinquent;
-    char user_input[GAME_MAX_RESPONSE_LENGTH] = {'\0'};
-
-    delinquent.health = 2;
-
-    printf("A delinquent appears! They look at you menacingly.\n");
-
-    while (delinquent.health > 0) {
-        printf("How do you respond? ");
-
-        util_get_user_input(user_input);
-        util_sanitise_input(user_input);
-
-        if (strncmp(user_input, "attack", 6) != 0) {
-            continue;
-        }
-        
-        delinquent.health--;
-        if (delinquent.health > 0) {
-            printf("\nThe delinquent takes a hit.\n");
-        } else {
-            printf("\nThe delinquent falls and dies.\n");
-        }
-    }
-}
-
-static void puzzle_challenge(void) {
-    char user_input[GAME_MAX_RESPONSE_LENGTH] = {'\0'};
-    struct puzzle_challenge puzzle;
-    size_t answer;
-
-    srand((unsigned) time(NULL));
-
-    puzzle.first = (unsigned) rand() % 100u + 1u;
-    puzzle.second = (unsigned) rand() % 100u + 1u;
-    answer = puzzle.first * puzzle.second;
-
-    printf("There is a note on the floor. You pick it up.\n");
-    printf("It says, '%u x %u'.\n", puzzle.first, puzzle.second);
-
-    while (util_string_to_size_t(user_input) != answer) {
-        printf("What could it possibly mean? ");
-        util_get_user_input(user_input);
-        util_sanitise_input(user_input);
-    }
-
-    printf("\nYou write '%s' on the note. Nice.\n", user_input);
-}
-
-static void clear_challenge(struct game *game) {
-    size_t i;
-    size_t j;
-
-    for (i = 0; i < FILE_MAX_ROOMS; ++i) {
-        if (game->player.room.room_number != game->rooms[i].room_number) {
-            continue;
-        }
-    
-        for (j = 0; j < FILE_MAX_CHALLENGES_PER_ROOM; ++j) {
-            if (game->rooms[i].challenges[j] != NONE) {
-                game->rooms[i].challenges[j] = NONE;
-                game->player.room.challenges[j] = NONE;
-                break;
-            }
-        }
-    
-        break;
-    }
-
-    if (i == FILE_MAX_ROOMS) {
-        printf("Cannot clear challenge from a room.\n");
-        util_leave();
-    }
-}
-
-static void move(struct game *game, enum direction direction) {
+static void game_move_player(struct game *game, enum direction direction) {
     size_t i;
     size_t next_room = game->player.room.connections[direction];
 
@@ -120,26 +36,7 @@ static void move(struct game *game, enum direction direction) {
     printf("\n%s", game->player.room.message);
 }
 
-void game_print_help_text(void) {
-    const char *help_text =
-    "Type compass directions to move.\n"
-    "Type 'attack' to attack.\n"
-    "Type numbers to solve puzzles.\n"
-    "Type 'exit', 'leave' or similar to quit.\n";
-
-    printf("%s", help_text);
-}
-
-void game_ask_for_name(char *user_input) {
-    while (user_input[0] == '\0') {
-        printf("What is your name? ");
-        util_get_user_input(user_input);
-        util_sanitise_input(user_input);
-        user_input[0] = (char)toupper((int)user_input[0]);
-    }
-}
-
-static void play(struct game *game, char *user_input) {
+static void game_play(struct game *game, char *user_input) {
     size_t i;
 
     if (strncmp(user_input, "help", 4) == 0) {
@@ -147,13 +44,13 @@ static void play(struct game *game, char *user_input) {
         game_print_help_text();
         return;
     } else if (strncmp(user_input, "north", 5) == 0) {
-        move(game, NORTH);
+        game_move_player(game, NORTH);
     } else if (strncmp(user_input, "east", 4) == 0) {
-        move(game, EAST);
+        game_move_player(game, EAST);
     } else if (strncmp(user_input, "south", 5) == 0) {
-        move(game, SOUTH);
+        game_move_player(game, SOUTH);
     } else if (strncmp(user_input, "west", 4) == 0) {
-        move(game, WEST);
+        game_move_player(game, WEST);
     } else if (strncmp(user_input, "exit", 4) == 0 ||
                strncmp(user_input, "leave", 5) == 0 ||
                strncmp(user_input, "quit", 4) == 0 ||
@@ -171,16 +68,35 @@ static void play(struct game *game, char *user_input) {
         case NONE:
             break;
         case PHYSICAL:
-            physical_challenge();
-            clear_challenge(game);
+            challenge_physical();
+            challenge_clear(game);
             break;
         case PUZZLE:
-            puzzle_challenge();
-            clear_challenge(game);
+            challenge_puzzle();
+            challenge_clear(game);
             break;
         default:
             break;
         }
+    }
+}
+
+void game_print_help_text(void) {
+    const char *help_text =
+    "Type compass directions to game_move_player.\n"
+    "Type 'attack' to attack.\n"
+    "Type numbers to solve puzzles.\n"
+    "Type 'exit', 'leave' or similar to quit.\n";
+
+    printf("%s", help_text);
+}
+
+void game_ask_for_name(char *user_input) {
+    while (user_input[0] == '\0') {
+        printf("What is your name? ");
+        util_get_user_input(user_input);
+        util_sanitise_input(user_input);
+        user_input[0] = (char)toupper((int)user_input[0]);
     }
 }
 
@@ -189,7 +105,7 @@ void game_start(struct game *game, char *user_input) {
         printf("What would you like to do? ");
         util_get_user_input(user_input);
         util_sanitise_input(user_input);
-        play(game, user_input);
+        game_play(game, user_input);
 
 #ifdef DEBUG
         debug_print_game_data(game);

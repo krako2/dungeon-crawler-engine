@@ -18,7 +18,7 @@ struct parse_data {
     char current_character;
 };
 
-static void write_template_config_file(FILE *config_file) {
+static void file_write_template_config_file(FILE *config_file) {
     const char *template =
     "[ROOMS]\n"
     "\n"
@@ -47,7 +47,7 @@ static void write_template_config_file(FILE *config_file) {
     fputs(template, config_file);
 }
 
-static void parse_introductory_text(struct parse_data *parse_data, struct game *game) {
+static void file_parse_introductory_text(struct parse_data *parse_data, struct game *game) {
     static size_t i = 0;
     if (i == INT_MAX) {
         puts("Error: Introductory text is too long.");
@@ -64,7 +64,7 @@ static void parse_introductory_text(struct parse_data *parse_data, struct game *
     }
 }
 
-static void parse_challenges_into_room(struct parse_data *parse_data, struct game *game) {
+static void file_parse_challenges_into_room(struct parse_data *parse_data, struct game *game) {
     while (parse_data->line[0] != '\n') {
         if (strncmp(parse_data->line, "None", 4) == 0) {
             util_trim_start(parse_data->line, 4);
@@ -100,13 +100,13 @@ static void parse_challenges_into_room(struct parse_data *parse_data, struct gam
     }
 }
 
-static void move_to_next_line(struct parse_data *parse_data) {
+static void file_move_to_next_line(struct parse_data *parse_data) {
     parse_data->line_counter++;
     parse_data->line_character_counter = 0;
     memset(parse_data->line, 0, FILE_MAX_FILE_LINE_LENGTH);
 }
 
-static void parse_config_file_into_game(FILE *config_file, struct game *game) {
+static void file_parse_config_file_into_game(FILE *config_file, struct game *game) {
     struct parse_data parse_data = {0};
     parse_data.line_counter = 1;
 
@@ -124,8 +124,8 @@ static void parse_config_file_into_game(FILE *config_file, struct game *game) {
         }
 
         if (parse_data.is_reading_introductory_text) {
-            parse_introductory_text(&parse_data, game);
-            move_to_next_line(&parse_data);
+            file_parse_introductory_text(&parse_data, game);
+            file_move_to_next_line(&parse_data);
             continue;
         }
 
@@ -145,12 +145,12 @@ static void parse_config_file_into_game(FILE *config_file, struct game *game) {
             game->rooms[parse_data.room_counter].connections[WEST] = util_string_to_size_t(parse_data.line);
         } else if (strncmp(parse_data.line, "CHALLENGE: ", 11) == 0) {
             util_trim_start(parse_data.line, 11);
-            parse_challenges_into_room(&parse_data, game);
+            file_parse_challenges_into_room(&parse_data, game);
         } else if (strncmp(parse_data.line, "[INTRODUCTORY TEXT]", 19) == 0) {
             parse_data.is_reading_introductory_text = 1;
         }
 
-        move_to_next_line(&parse_data);
+        file_move_to_next_line(&parse_data);
     }
 }
 
@@ -158,7 +158,7 @@ void file_load_config(struct game *game) {
     FILE *config_file = fopen(FILE_CONFIG_FILE_NAME, "r");
 
     if (config_file != NULL) {
-        parse_config_file_into_game(config_file, game);
+        file_parse_config_file_into_game(config_file, game);
         fclose(config_file);
         return;
     }
@@ -170,7 +170,7 @@ void file_load_config(struct game *game) {
         util_leave();
     }
 
-    write_template_config_file(config_file);
+    file_write_template_config_file(config_file);
 
     fclose(config_file);
 
@@ -182,6 +182,6 @@ void file_load_config(struct game *game) {
     }
 
     rewind(config_file);
-    parse_config_file_into_game(config_file, game);
+    file_parse_config_file_into_game(config_file, game);
     fclose(config_file);
 }
