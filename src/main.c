@@ -36,9 +36,9 @@ int main(void) {
         util_sanitise_input(user_input);
         play(&game, user_input);
 
-        #ifdef DEBUG
+#ifdef DEBUG
         print_debug_info(&game);
-        #endif
+#endif
     }
 
     return EXIT_SUCCESS;
