@@ -1,6 +1,0 @@
-#ifndef GAME_DEFINES_H
-#define GAME_DEFINES_H
-
-#define GAME_MAX_RESPONSE_LENGTH 16
-
-#endif

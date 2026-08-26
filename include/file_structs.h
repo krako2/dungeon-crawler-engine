@@ -3,7 +3,7 @@
 
 #include <stddef.h>
 
-#include "file_defines.h"
+#include "file_macros.h"
 
 struct parse_data {
     size_t room_counter;

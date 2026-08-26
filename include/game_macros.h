@@ -1,0 +1,6 @@
+#ifndef GAME_MACROS_H
+#define GAME_MACROS_H
+
+#define GAME_MAX_RESPONSE_LENGTH 16
+
+#endif
