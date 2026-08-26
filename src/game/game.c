@@ -6,7 +6,11 @@
 #include <stdbool.h>
 #include <time.h>
 
-#include "globals.h"
+#include "file_macros.h"
+#include "file_structs.h"
+#include "game_macros.h"
+#include "game_structs.h"
+#include "game_enums.h"
 #include "util.h"
 #include "game.h"
 #include "challenge.h"
@@ -83,7 +87,7 @@ static void game_play(struct game *game, char *user_input) {
 
 void game_print_help_text(void) {
     const char *help_text =
-    "Type compass directions to game_move_player.\n"
+    "Type compass directions to move.\n"
     "Type 'attack' to attack.\n"
     "Type numbers to solve puzzles.\n"
     "Type 'exit', 'leave' or similar to quit.\n";

@@ -1,6 +1,10 @@
 #include <stdio.h>
 
-#include "globals.h"
+#include "file_macros.h"
+#include "file_structs.h"
+#include "game_macros.h"
+#include "game_structs.h"
+#include "game_enums.h"
 #include "debug.h"
 
 void debug_print_game_data(struct game *game) {

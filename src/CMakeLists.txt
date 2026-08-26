@@ -1,11 +1,13 @@
-target_sources(${CMAKE_PROJECT_NAME} PRIVATE
-    main.c
-    game.c
-    file.c
-    util.c
-    debug.c
-    challenge.c
-)
+target_sources(${CMAKE_PROJECT_NAME} PRIVATE main.c)
+
+add_subdirectory(debug)
+add_subdirectory(file)
+add_subdirectory(game)
+add_subdirectory(util)
+
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
-    ${CMAKE_SOURCE_DIR}/include
+    debug
+    file
+    game
+    util
 )
