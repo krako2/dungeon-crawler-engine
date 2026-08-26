@@ -30,15 +30,6 @@ CONNECTIONS:
 	EAST: None
 	SOUTH: None
 	WEST: None
-CHALLENGE: None
-
-ROOM NUMBER: 101
-MESSAGE: You enter a dingy living room. It is not well-kept.
-CONNECTIONS:
-	NORTH: None
-	EAST: 1
-	SOUTH: 100
-	WEST: None
 CHALLENGE: Physical, Puzzle
 
 ROOM NUMBER: 1
