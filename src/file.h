@@ -1,6 +1,6 @@
 #ifndef FILE_H
 #define FILE_H
 
-void load_game_from_config_file(struct game *game);
+void file_load_config(struct game *game);
 
 #endif

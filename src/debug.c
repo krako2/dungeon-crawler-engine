@@ -3,7 +3,7 @@
 #include "constants.h"
 #include "debug.h"
 
-void print_debug_info(struct game *game) {
+void debug_print_game_data(struct game *game) {
     size_t i;
     size_t j;
 

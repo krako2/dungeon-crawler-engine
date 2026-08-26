@@ -154,7 +154,7 @@ static void parse_config_file_into_game(FILE *config_file, struct game *game) {
     }
 }
 
-void load_game_from_config_file(struct game *game) {
+void file_load_config(struct game *game) {
     FILE *config_file = fopen(FILE_CONFIG_FILE_NAME, "r");
 
     if (config_file != NULL) {

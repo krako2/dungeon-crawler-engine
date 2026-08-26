@@ -1,6 +1,6 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 
-void print_debug_info(struct game *game);
+void debug_print_game_data(struct game *game);
 
 #endif

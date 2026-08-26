@@ -9,6 +9,7 @@
 #include "constants.h"
 #include "util.h"
 #include "game.h"
+#include "debug.h"
 
 struct physical_challenge {
     int health;
@@ -119,7 +120,7 @@ static void move(struct game *game, enum direction direction) {
     printf("\n%s", game->player.room.message);
 }
 
-void print_help_text(void) {
+void game_print_help_text(void) {
     const char *help_text =
     "Type compass directions to move.\n"
     "Type 'attack' to attack.\n"
@@ -129,12 +130,21 @@ void print_help_text(void) {
     printf("%s", help_text);
 }
 
-void play(struct game *game, char *user_input) {
+void game_ask_for_name(char *user_input) {
+    while (user_input[0] == '\0') {
+        printf("What is your name? ");
+        util_get_user_input(user_input);
+        util_sanitise_input(user_input);
+        user_input[0] = (char)toupper((int)user_input[0]);
+    }
+}
+
+static void play(struct game *game, char *user_input) {
     size_t i;
 
     if (strncmp(user_input, "help", 4) == 0) {
         printf("\n");
-        print_help_text();
+        game_print_help_text();
         return;
     } else if (strncmp(user_input, "north", 5) == 0) {
         move(game, NORTH);
@@ -171,5 +181,18 @@ void play(struct game *game, char *user_input) {
         default:
             break;
         }
+    }
+}
+
+void game_start(struct game *game, char *user_input) {
+    while (1) {
+        printf("What would you like to do? ");
+        util_get_user_input(user_input);
+        util_sanitise_input(user_input);
+        play(game, user_input);
+
+#ifdef DEBUG
+        debug_print_game_data(game);
+#endif
     }
 }
