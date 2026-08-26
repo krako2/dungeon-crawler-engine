@@ -30,7 +30,7 @@ CONNECTIONS:
 	EAST: None
 	SOUTH: None
 	WEST: None
-CHALLENGE: Physical, Puzzle
+CHALLENGE: None
 
 ROOM NUMBER: 1
 MESSAGE: You enter the winning room. Congrats!
@@ -39,7 +39,7 @@ CONNECTIONS:
 	EAST: None
 	SOUTH: None
 	WEST: None
-CHALLENGE: None
+CHALLENGE: Physical, Puzzle
 
 [INTRODUCTORY TEXT]
 
