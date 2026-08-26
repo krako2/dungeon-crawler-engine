@@ -39,5 +39,5 @@ int main(void) {
 #endif
     }
 
-    return EXIT_SUCCESS;
+    return 0;
 }
