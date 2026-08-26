@@ -3,7 +3,7 @@
 #include <string.h>
 #include <time.h>
 
-#include "constants.h"
+#include "globals.h"
 #include "util.h"
 #include "challenge.h"
 

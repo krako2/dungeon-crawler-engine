@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <ctype.h>
 
-#include "constants.h"
+#include "globals.h"
 #include "util.h"
 
 void util_sanitise_input(char *user_input) {

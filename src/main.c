@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-#include "constants.h"
+#include "globals.h"
 #include "util.h"
 #include "game.h"
 #include "file.h"

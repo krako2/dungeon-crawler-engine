@@ -4,19 +4,9 @@
 #include <stdint.h>
 #include <limits.h>
 
-#include "constants.h"
+#include "globals.h"
 #include "util.h"
 #include "file.h"
-
-struct parse_data {
-    size_t room_counter;
-    size_t room_challenge_counter;
-    size_t line_counter;
-    size_t line_character_counter;
-    int is_reading_introductory_text;
-    char line[FILE_MAX_FILE_LINE_LENGTH];
-    char current_character;
-};
 
 static void file_write_template_config_file(FILE *config_file) {
     const char *template =

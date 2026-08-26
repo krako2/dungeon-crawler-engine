@@ -1,27 +1,11 @@
-#ifndef CONSTANTS_H
-#define CONSTANTS_H
+#ifndef GAME_STRUCTS_H
+#define GAME_STRUCTS_H
 
-#define FILE_MAX_ROOMS 64
-#define FILE_MAX_ROOM_MESSAGE_LENGTH 200
-#define FILE_MAX_CHALLENGES_PER_ROOM 8
-#define FILE_INTRO_TEXT_MAX_LENGTH 80
-#define FILE_MAX_FILE_LINE_LENGTH 203
-#define FILE_CONFIG_FILE_NAME "config.txt"
+#include <stddef.h>
 
-#define GAME_MAX_RESPONSE_LENGTH 16
-
-enum challenge {
-    NONE,
-    PHYSICAL,
-    PUZZLE
-};
-
-enum direction {
-    NORTH,
-    EAST,
-    SOUTH,
-    WEST
-};
+#include "file-defines.h"
+#include "game-defines.h"
+#include "enums.h"
 
 struct room {
     char message[FILE_MAX_ROOM_MESSAGE_LENGTH];

@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "constants.h"
+#include "globals.h"
 #include "debug.h"
 
 void debug_print_game_data(struct game *game) {

@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #include <time.h>
 
-#include "constants.h"
+#include "globals.h"
 #include "util.h"
 #include "game.h"
 #include "challenge.h"
