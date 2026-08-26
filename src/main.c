@@ -2,16 +2,15 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-#include "constant.h"
-
+#include "constants.h"
 #include "util.h"
-#include "file.h"
 #include "game.h"
+#include "file.h"
 #include "debug.h"
 
 int main(void) {
     static struct game game = {0};
-    char user_input[MAX_RESPONSE_LENGTH] = {'\0'};
+    char user_input[GAME_MAX_RESPONSE_LENGTH] = {'\0'};
 
     load_game_from_config_file(&game);
 

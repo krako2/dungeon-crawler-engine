@@ -1,5 +1,5 @@
-#ifndef UTILITY_H
-#define UTILITY_H
+#ifndef UTIL_H
+#define UTIL_H
 
 void util_sanitise_input(char *user_input);
 void util_leave(void);

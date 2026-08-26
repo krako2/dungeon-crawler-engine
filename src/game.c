@@ -6,10 +6,9 @@
 #include <stdbool.h>
 #include <time.h>
 
-#include "constant.h"
-#include "game.h"
-
+#include "constants.h"
 #include "util.h"
+#include "game.h"
 
 struct physical_challenge {
     int health;
@@ -22,7 +21,7 @@ struct puzzle_challenge {
 
 static void physical_challenge(void) {
     struct physical_challenge delinquent;
-    char user_input[MAX_RESPONSE_LENGTH] = {'\0'};
+    char user_input[GAME_MAX_RESPONSE_LENGTH] = {'\0'};
 
     delinquent.health = 2;
 
@@ -48,7 +47,7 @@ static void physical_challenge(void) {
 }
 
 static void puzzle_challenge(void) {
-    char user_input[MAX_RESPONSE_LENGTH] = {'\0'};
+    char user_input[GAME_MAX_RESPONSE_LENGTH] = {'\0'};
     struct puzzle_challenge puzzle;
     size_t answer;
 
@@ -74,12 +73,12 @@ static void clear_challenge(struct game *game) {
     size_t i;
     size_t j;
 
-    for (i = 0; i < MAX_ROOMS; ++i) {
+    for (i = 0; i < FILE_MAX_ROOMS; ++i) {
         if (game->player.room.room_number != game->rooms[i].room_number) {
             continue;
         }
     
-        for (j = 0; j < MAX_CHALLENGES_PER_ROOM; ++j) {
+        for (j = 0; j < FILE_MAX_CHALLENGES_PER_ROOM; ++j) {
             if (game->rooms[i].challenges[j] != NONE) {
                 game->rooms[i].challenges[j] = NONE;
                 game->player.room.challenges[j] = NONE;
@@ -90,7 +89,7 @@ static void clear_challenge(struct game *game) {
         break;
     }
 
-    if (i == MAX_ROOMS) {
+    if (i == FILE_MAX_ROOMS) {
         printf("Cannot clear challenge from a room.\n");
         util_leave();
     }
@@ -105,14 +104,14 @@ static void move(struct game *game, enum direction direction) {
         return;
     }
     
-    for (i = 0; i < MAX_ROOMS; ++i) {
+    for (i = 0; i < FILE_MAX_ROOMS; ++i) {
         if (game->rooms[i].room_number == next_room) {
             game->player.room = game->rooms[i];
             break;
         }
     }
 
-    if (i == MAX_ROOMS) {
+    if (i == FILE_MAX_ROOMS) {
         printf("Couldn't find room.\n");
         util_leave();
     }
@@ -157,7 +156,7 @@ void play(struct game *game, char *user_input) {
         util_leave();
     }
 
-    for (i = 0; i < MAX_CHALLENGES_PER_ROOM; ++i) {
+    for (i = 0; i < FILE_MAX_CHALLENGES_PER_ROOM; ++i) {
         switch (game->player.room.challenges[i]) {
         case NONE:
             break;

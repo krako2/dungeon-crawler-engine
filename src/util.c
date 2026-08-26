@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <ctype.h>
 
-#include "constant.h"
+#include "constants.h"
 #include "util.h"
 
 void util_sanitise_input(char *user_input) {
@@ -31,14 +31,14 @@ void util_sanitise_input(char *user_input) {
 }
 
 void util_leave(void) {
-    char user_input[MAX_RESPONSE_LENGTH] = {'\0'};
+    char user_input[GAME_MAX_RESPONSE_LENGTH] = {'\0'};
 
     while (strncmp(user_input, "\n", 1) != 0) {
         char *newline_position;
 
         printf("Press enter to leave.\n");
 
-        if (fgets(user_input, MAX_RESPONSE_LENGTH, stdin) == NULL) {
+        if (fgets(user_input, GAME_MAX_RESPONSE_LENGTH, stdin) == NULL) {
             exit(-1);
         }
 
@@ -55,7 +55,7 @@ void util_leave(void) {
 void util_wait_for_user_input(char *user_input) {
     char *newline_position;
 
-    if (fgets(user_input, MAX_RESPONSE_LENGTH, stdin) == NULL) {
+    if (fgets(user_input, GAME_MAX_RESPONSE_LENGTH, stdin) == NULL) {
         exit(-1);
     }
 

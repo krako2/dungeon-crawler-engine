@@ -4,11 +4,9 @@
 #include <stdint.h>
 #include <limits.h>
 
-#include "constant.h"
-#include "game.h"
-#include "file.h"
-
+#include "constants.h"
 #include "util.h"
+#include "file.h"
 
 struct parse_data {
     size_t room_counter;
@@ -16,7 +14,7 @@ struct parse_data {
     size_t line_counter;
     size_t line_character_counter;
     int is_reading_introductory_text;
-    char line[MAX_FILE_LINE_LENGTH];
+    char line[FILE_MAX_FILE_LINE_LENGTH];
     char current_character;
 };
 
@@ -85,11 +83,11 @@ static void parse_challenges_into_room(struct parse_data *parse_data, struct gam
         }
     }
 
-    if (parse_data->room_challenge_counter > MAX_CHALLENGES_PER_ROOM) {
+    if (parse_data->room_challenge_counter > FILE_MAX_CHALLENGES_PER_ROOM) {
         printf("Error: Too many challenges assigned to room %zu (line %zu, max %d, currently %zu).\n",
             game->rooms[parse_data->room_counter].room_number,
             parse_data->line_counter,
-            MAX_CHALLENGES_PER_ROOM,
+            FILE_MAX_CHALLENGES_PER_ROOM,
             parse_data->room_challenge_counter
         );
         util_leave();
@@ -97,15 +95,15 @@ static void parse_challenges_into_room(struct parse_data *parse_data, struct gam
 
     parse_data->room_counter++;
 
-    if (parse_data->room_counter >= MAX_ROOMS) {
-        printf("Error: Too many rooms in %s (max %d).", CONFIG_FILE_NAME, MAX_ROOMS);
+    if (parse_data->room_counter >= FILE_MAX_ROOMS) {
+        printf("Error: Too many rooms in %s (max %d).", FILE_CONFIG_FILE_NAME, FILE_MAX_ROOMS);
     }
 }
 
 static void move_to_next_line(struct parse_data *parse_data) {
     parse_data->line_counter++;
     parse_data->line_character_counter = 0;
-    memset(parse_data->line, 0, MAX_FILE_LINE_LENGTH);
+    memset(parse_data->line, 0, FILE_MAX_FILE_LINE_LENGTH);
 }
 
 static void parse_config_file_into_game(FILE *config_file, struct game *game) {
@@ -116,8 +114,8 @@ static void parse_config_file_into_game(FILE *config_file, struct game *game) {
         parse_data.line[parse_data.line_character_counter] = parse_data.current_character;
         parse_data.line_character_counter++;
 
-        if (parse_data.line_character_counter >= MAX_FILE_LINE_LENGTH) {
-            printf("Error: Line %zu of %s is too long.\n", parse_data.line_counter, CONFIG_FILE_NAME);
+        if (parse_data.line_character_counter >= FILE_MAX_FILE_LINE_LENGTH) {
+            printf("Error: Line %zu of %s is too long.\n", parse_data.line_counter, FILE_CONFIG_FILE_NAME);
             util_leave();
         }
 
@@ -157,7 +155,7 @@ static void parse_config_file_into_game(FILE *config_file, struct game *game) {
 }
 
 void load_game_from_config_file(struct game *game) {
-    FILE *config_file = fopen(CONFIG_FILE_NAME, "r");
+    FILE *config_file = fopen(FILE_CONFIG_FILE_NAME, "r");
 
     if (config_file != NULL) {
         parse_config_file_into_game(config_file, game);
@@ -165,7 +163,7 @@ void load_game_from_config_file(struct game *game) {
         return;
     }
 
-    config_file = fopen(CONFIG_FILE_NAME, "w");
+    config_file = fopen(FILE_CONFIG_FILE_NAME, "w");
 
     if (config_file == NULL) {
         puts("Error: Cannot create file.");
@@ -176,7 +174,7 @@ void load_game_from_config_file(struct game *game) {
 
     fclose(config_file);
 
-    config_file = fopen(CONFIG_FILE_NAME, "r");
+    config_file = fopen(FILE_CONFIG_FILE_NAME, "r");
 
     if (config_file == NULL) {
         puts("Error: Cannot locate file.");

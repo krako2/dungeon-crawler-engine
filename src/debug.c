@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "constant.h"
-#include "game.h"
+
+#include "constants.h"
 #include "debug.h"
 
 void print_debug_info(struct game *game) {
@@ -14,7 +14,7 @@ void print_debug_info(struct game *game) {
     printf("[ROOMS]\n");
     printf("\n");
 
-    for (i = 0; i < MAX_ROOMS; ++i) {
+    for (i = 0; i < FILE_MAX_ROOMS; ++i) {
         if (game->rooms[i].room_number == 0) {
             break;
         }
@@ -27,7 +27,7 @@ void print_debug_info(struct game *game) {
         printf("West connection: %zu\n", game->rooms[i].connections[WEST]);
         printf("\n");
 
-        for (j = 0; j < MAX_CHALLENGES_PER_ROOM; j++) {
+        for (j = 0; j < FILE_MAX_CHALLENGES_PER_ROOM; j++) {
             printf("Challenge %zu: %u\n", j + 1, game->rooms[i].challenges[j]);
         }
 
