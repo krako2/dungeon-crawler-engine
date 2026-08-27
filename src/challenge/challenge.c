@@ -48,10 +48,10 @@ void challenge_puzzle(void) {
     struct challenge_puzzle puzzle;
     size_t answer;
 
-    srand((unsigned) time(NULL));
+    srand((unsigned)time(NULL));
 
-    puzzle.first = (unsigned) rand() % 100u + 1u;
-    puzzle.second = (unsigned) rand() % 100u + 1u;
+    puzzle.first = (unsigned)rand() % 100u + 1u;
+    puzzle.second = (unsigned)rand() % 100u + 1u;
     answer = puzzle.first * puzzle.second;
 
     printf("There is a note on the floor. You pick it up.\n");
