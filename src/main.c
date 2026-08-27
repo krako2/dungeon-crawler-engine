@@ -5,7 +5,8 @@
 #include "game.h"
 #include "file.h"
 
-int main(void) {
+int main(void)
+{
     static struct game game = {0};
     char user_input[GAME_MAX_RESPONSE_LENGTH] = {'\0'};
 

@@ -5,7 +5,8 @@
 
 #include "file_macros.h"
 
-struct parse_data {
+struct parse_data
+{
     size_t room_counter;
     size_t room_challenge_counter;
     size_t line_counter;

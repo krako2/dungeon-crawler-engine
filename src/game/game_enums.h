@@ -1,13 +1,15 @@
 #ifndef ENUMS_H
 #define ENUMS_H
 
-enum challenge {
+enum challenge
+{
     NONE,
     PHYSICAL,
     PUZZLE
 };
 
-enum direction {
+enum direction
+{
     NORTH,
     EAST,
     SOUTH,

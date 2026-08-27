@@ -6,17 +6,21 @@
 #include "game_macros.h"
 #include "util.h"
 
-void util_sanitise_input(char *user_input) {
+void util_sanitise_input(char *user_input)
+{
     size_t read = 0;
     size_t write = 0;
 
-    while (user_input[read] != '\0') {
-        if (isspace(user_input[read])) {
+    while (user_input[read] != '\0')
+    {
+        if (isspace(user_input[read]))
+        {
             ++read;
             continue;
         }
 
-        if (user_input[read] >= 'A' && user_input[read] <= 'Z') {
+        if (user_input[read] >= 'A' && user_input[read] <= 'Z')
+        {
             user_input[read] += 32;
         }
 
@@ -32,18 +36,21 @@ void util_sanitise_input(char *user_input) {
 void util_leave(void) {
     char user_input[GAME_MAX_RESPONSE_LENGTH] = {'\0'};
 
-    while (strncmp(user_input, "\n", 1) != 0) {
+    while (strncmp(user_input, "\n", 1) != 0)
+    {
         char *newline_position;
 
         printf("Press enter to leave.\n");
 
-        if (fgets(user_input, GAME_MAX_RESPONSE_LENGTH, stdin) == NULL) {
+        if (fgets(user_input, GAME_MAX_RESPONSE_LENGTH, stdin) == NULL)
+        {
             exit(-1);
         }
 
         newline_position = strchr(user_input, '\n');
 
-        if (newline_position == NULL) {
+        if (newline_position == NULL)
+        {
             while(getchar() != '\n');
         }
     }
@@ -51,42 +58,53 @@ void util_leave(void) {
     exit(-1);
 }
 
-void util_get_user_input(char *user_input) {
+void util_get_user_input(char *user_input)
+{
     char *newline_position;
 
-    if (fgets(user_input, GAME_MAX_RESPONSE_LENGTH, stdin) == NULL) {
+    if (fgets(user_input, GAME_MAX_RESPONSE_LENGTH, stdin) == NULL)
+    {
         exit(-1);
     }
 
     newline_position = strchr(user_input, '\n');
 
-    if (newline_position == NULL) {
+    if (newline_position == NULL)
+    {
         while (getchar() != '\n');
-    } else {
+    }
+    else
+    {
         *newline_position = '\0';
     }
 }
 
-void util_trim_start(char *text, size_t characters) {
+void util_trim_start(char *text, size_t characters)
+{
     size_t i = 0;
     size_t j;
 
-    while (text[i + characters] != '\0') {
+    while (text[i + characters] != '\0')
+    {
         text[i] = text[i + characters];
         ++i;
     }
 
-    for (j = 0; j < characters; ++j) {
+    for (j = 0; j < characters; ++j)
+    {
         text[i + j] = '\0';
     }
 }
 
-size_t util_string_to_size_t(char *text) {
+size_t util_string_to_size_t(char *text)
+{
     size_t value = 0;
     size_t i = 0;
 
-    while (text[i] != '\0') {
-        if (text[i] >= '0' && text[i] <= '9') {
+    while (text[i] != '\0')
+    {
+        if (text[i] >= '0' && text[i] <= '9')
+        {
             value = (value * 10) + (size_t)text[i] - '0';
         }
 
@@ -96,6 +114,7 @@ size_t util_string_to_size_t(char *text) {
     return value;
 }
 
-char util_char_uppercase(char character) {
+char util_char_uppercase(char character)
+{
     return (character >= 97 && character <= 122) ? character - 32 : character;
 }

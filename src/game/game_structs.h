@@ -7,19 +7,22 @@
 #include "game_macros.h"
 #include "game_enums.h"
 
-struct room {
+struct room
+{
     char message[FILE_MAX_ROOM_MESSAGE_LENGTH];
     enum challenge challenges[FILE_MAX_CHALLENGES_PER_ROOM];
     size_t connections[4]; /* North, East, South, West */
     size_t room_number;
 };
 
-struct player {
+struct player
+{
     struct room room;
     char name[GAME_MAX_RESPONSE_LENGTH];
 };
 
-struct game {
+struct game
+{
     struct player player;
     struct room rooms[FILE_MAX_ROOMS];
     char introductory_text[FILE_INTRO_TEXT_MAX_LENGTH];

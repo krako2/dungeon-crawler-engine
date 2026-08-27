@@ -8,23 +8,28 @@
 #include "debug.h"
 #include "game.h"
 
-static void game_move_player(struct game *game, enum direction direction) {
+static void game_move_player(struct game *game, enum direction direction)
+{
     size_t i;
     size_t next_room = game->player.room.connections[direction];
 
-    if (next_room == 0) {
+    if (next_room == 0)
+    {
         printf("\nYou hit a wall. Ouch!\n");
         return;
     }
     
-    for (i = 0; i < FILE_MAX_ROOMS; ++i) {
-        if (game->rooms[i].room_number == next_room) {
+    for (i = 0; i < FILE_MAX_ROOMS; ++i)
+    {
+        if (game->rooms[i].room_number == next_room)
+        {
             game->player.room = game->rooms[i];
             break;
         }
     }
 
-    if (i == FILE_MAX_ROOMS) {
+    if (i == FILE_MAX_ROOMS)
+    {
         printf("Couldn't find room.\n");
         util_leave();
     }
@@ -32,35 +37,50 @@ static void game_move_player(struct game *game, enum direction direction) {
     printf("\n%s", game->player.room.message);
 }
 
-static void game_play_input(struct game *game, char *user_input) {
+static void game_play_input(struct game *game, char *user_input)
+{
     size_t i;
 
-    if (strncmp(user_input, "help", 4) == 0) {
+    if (strncmp(user_input, "help", 4) == 0)
+    {
         printf("\n");
         game_print_help_text();
         return;
-    } else if (strncmp(user_input, "north", 5) == 0) {
+    }
+    else if (strncmp(user_input, "north", 5) == 0)
+    {
         game_move_player(game, NORTH);
-    } else if (strncmp(user_input, "east", 4) == 0) {
+    }
+    else if (strncmp(user_input, "east", 4) == 0)
+    {
         game_move_player(game, EAST);
-    } else if (strncmp(user_input, "south", 5) == 0) {
+    }
+    else if (strncmp(user_input, "south", 5) == 0)
+    {
         game_move_player(game, SOUTH);
-    } else if (strncmp(user_input, "west", 4) == 0) {
+    }
+    else if (strncmp(user_input, "west", 4) == 0)
+    {
         game_move_player(game, WEST);
-    } else if (strncmp(user_input, "exit", 4) == 0 ||
-               strncmp(user_input, "leave", 5) == 0 ||
-               strncmp(user_input, "quit", 4) == 0 ||
-               strncmp(user_input, "out", 3) == 0) {
+    }
+    else if (strncmp(user_input, "exit", 4) == 0 ||
+             strncmp(user_input, "leave", 5) == 0 ||
+             strncmp(user_input, "quit", 4) == 0 ||
+             strncmp(user_input, "out", 3) == 0)
+    {
         util_leave();
     }
 
-    if (game->player.room.room_number == 1) {
+    if (game->player.room.room_number == 1)
+    {
         printf("Congratulations, %s!\n", game->player.name);
         util_leave();
     }
 
-    for (i = 0; i < FILE_MAX_CHALLENGES_PER_ROOM; ++i) {
-        switch (game->player.room.challenges[i]) {
+    for (i = 0; i < FILE_MAX_CHALLENGES_PER_ROOM; ++i)
+    {
+        switch (game->player.room.challenges[i])
+        {
         case NONE:
             break;
         case PHYSICAL:
@@ -77,7 +97,8 @@ static void game_play_input(struct game *game, char *user_input) {
     }
 }
 
-void game_print_help_text(void) {
+void game_print_help_text(void)
+{
     const char *help_text =
     "Type compass directions to move.\n"
     "Type 'attack' to attack.\n"
@@ -87,8 +108,10 @@ void game_print_help_text(void) {
     printf("%s", help_text);
 }
 
-void game_get_name(struct game *game, char *user_input) {
-    while (user_input[0] == '\0') {
+void game_get_name(struct game *game, char *user_input)
+{
+    while (user_input[0] == '\0')
+    {
         printf("What is your name? ");
         util_get_user_input(user_input);
         util_sanitise_input(user_input);
@@ -99,8 +122,10 @@ void game_get_name(struct game *game, char *user_input) {
     game->player.room = game->rooms[0];
 }
 
-void game_loop(struct game *game, char *user_input) {
-    while (1) {
+void game_loop(struct game *game, char *user_input)
+{
+    while (1)
+    {
         printf("What would you like to do? ");
         util_get_user_input(user_input);
         util_sanitise_input(user_input);
