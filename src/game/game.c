@@ -87,16 +87,19 @@ void game_print_help_text(void) {
     printf("%s", help_text);
 }
 
-void game_ask_for_name(char *user_input) {
+void game_get_name(struct game *game, char *user_input) {
     while (user_input[0] == '\0') {
         printf("What is your name? ");
         util_get_user_input(user_input);
         util_sanitise_input(user_input);
-        user_input[0] = (char)toupper((int)user_input[0]);
+        user_input[0] = util_char_uppercase(user_input[0]);
     }
+
+    sprintf(game->player.name, "%s", user_input);
+    game->player.room = game->rooms[0];
 }
 
-void game_start(struct game *game, char *user_input) {
+void game_loop(struct game *game, char *user_input) {
     while (1) {
         printf("What would you like to do? ");
         util_get_user_input(user_input);

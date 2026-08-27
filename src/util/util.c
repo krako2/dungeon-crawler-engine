@@ -95,3 +95,7 @@ size_t util_string_to_size_t(char *text) {
 
     return value;
 }
+
+char util_char_uppercase(char character) {
+    return (character >= 97 && character <= 122) ? character - 32 : character;
+}

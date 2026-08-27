@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
 
 #include "game_structs.h"
 #include "game.h"
@@ -13,13 +12,9 @@ int main(void) {
     file_load_config(&game);
     game_print_help_text();
     printf("Type 'help' to bring up these instructions (after giving your name).\n\n");
-
-    game_ask_for_name(user_input);
-
-    sprintf(game.player.name, "%s", user_input);
-    game.player.room = game.rooms[0];
+    game_get_name(&game, user_input);
 
     printf("\n%s\n\n", game.introductory_text);
 
-    game_start(&game, user_input);
+    game_loop(&game, user_input);
 }
