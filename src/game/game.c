@@ -32,7 +32,7 @@ static void game_move_player(struct game *game, enum direction direction) {
     printf("\n%s", game->player.room.message);
 }
 
-static void game_play(struct game *game, char *user_input) {
+static void game_play_input(struct game *game, char *user_input) {
     size_t i;
 
     if (strncmp(user_input, "help", 4) == 0) {
@@ -104,7 +104,7 @@ void game_loop(struct game *game, char *user_input) {
         printf("What would you like to do? ");
         util_get_user_input(user_input);
         util_sanitise_input(user_input);
-        game_play(game, user_input);
+        game_play_input(game, user_input);
 
         #ifdef DEBUG
         debug_print_game_data(game);
