@@ -3,18 +3,10 @@
 #include <string.h>
 #include <time.h>
 
-#include "game_structs.h"
-#include "util.h"
+#include "shared.h"
 #include "challenge.h"
 
-struct challenge_physical {
-    int health;
-};
-
-struct challenge_puzzle {
-    unsigned first;
-    unsigned second;
-};
+#include "util.h"
 
 void challenge_physical(void) {
     struct challenge_physical delinquent;

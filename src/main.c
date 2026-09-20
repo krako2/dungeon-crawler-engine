@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "game_structs.h"
-#include "game.h"
+#include "shared.h"
+
 #include "file.h"
+#include "game.h"
 
 int main(void) {
     static struct game game = {0};

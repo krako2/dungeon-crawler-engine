@@ -2,10 +2,10 @@
 #include <string.h>
 #include <limits.h>
 
-#include "file_structs.h"
-#include "game_structs.h"
-#include "util.h"
+#include "shared.h"
 #include "file.h"
+
+#include "util.h"
 
 static void file_write_template_config_file(FILE *config_file) {
     const char *template =

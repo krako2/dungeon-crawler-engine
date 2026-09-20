@@ -35,4 +35,8 @@ set(CMAKE_C_EXTENSIONS False)
 
 add_executable(${CMAKE_PROJECT_NAME})
 
+target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
+    include
+)
+
 add_subdirectory(src)

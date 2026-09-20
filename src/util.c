@@ -3,7 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 
-#include "game_macros.h"
+#include "shared.h"
 #include "util.h"
 
 void util_sanitise_input(char *user_input) {

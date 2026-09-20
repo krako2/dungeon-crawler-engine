@@ -2,11 +2,11 @@
 #include <string.h>
 #include <ctype.h>
 
-#include "game_structs.h"
+#include "shared.h"
+#include "game.h"
+
 #include "util.h"
 #include "challenge.h"
-#include "debug.h"
-#include "game.h"
 
 static void game_move_player(struct game *game, enum direction direction) {
     size_t i;
