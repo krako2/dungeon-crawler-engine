@@ -3,7 +3,7 @@
 #include "shared.h"
 #include "debug.h"
 
-void debug_print_game_data(struct game *game) {
+void debug_print_all_game_data(struct game *game) {
     size_t i;
     size_t j;
 
@@ -14,20 +14,20 @@ void debug_print_game_data(struct game *game) {
     printf("[ROOMS]\n");
     printf("\n");
 
-    for (i = 0; i < FILE_MAX_ROOMS; ++i) {
+    for (i = 0; i < MAX_ROOMS; ++i) {
         if (game->rooms[i].room_number == 0) {
             break;
         }
 
-        printf("Room number: %zu\n", game->rooms[i].room_number);
+        printf("Room number: %u\n", game->rooms[i].room_number);
         printf("Room message: %s\n", game->rooms[i].message);
-        printf("North connection: %zu\n", game->rooms[i].connections[NORTH]);
-        printf("East connection: %zu\n", game->rooms[i].connections[EAST]);
-        printf("South connection: %zu\n", game->rooms[i].connections[SOUTH]);
-        printf("West connection: %zu\n", game->rooms[i].connections[WEST]);
+        printf("North connection: %u\n", game->rooms[i].connections[NORTH]);
+        printf("East connection: %u\n", game->rooms[i].connections[EAST]);
+        printf("South connection: %u\n", game->rooms[i].connections[SOUTH]);
+        printf("West connection: %u\n", game->rooms[i].connections[WEST]);
         printf("\n");
 
-        for (j = 0; j < FILE_MAX_CHALLENGES_PER_ROOM; j++) {
+        for (j = 0; j < MAX_CHALLENGES_PER_ROOM; j++) {
             printf("Challenge %zu: %u\n", j + 1, game->rooms[i].challenges[j]);
         }
 

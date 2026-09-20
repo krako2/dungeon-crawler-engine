@@ -6,11 +6,38 @@
 #include "shared.h"
 #include "challenge.h"
 
-#include "util.h"
+#include "string.h"
+#include "io.h"
 
-void challenge_physical(void) {
+static void challenge_clear(struct game *game) {
+    size_t i;
+    size_t j;
+
+    for (i = 0; i < MAX_ROOMS; ++i) {
+        if (game->player.current_room.room_number != game->rooms[i].room_number) {
+            continue;
+        }
+    
+        for (j = 0; j < MAX_CHALLENGES_PER_ROOM; ++j) {
+            if (game->rooms[i].challenges[j] != NONE) {
+                game->rooms[i].challenges[j] = NONE;
+                game->player.current_room.challenges[j] = NONE;
+                break;
+            }
+        }
+    
+        break;
+    }
+
+    if (i == MAX_ROOMS) {
+        printf("Cannot clear challenge from a room.\n");
+        io_leave();
+    }
+}
+
+void challenge_physical(struct game *game) {
     struct challenge_physical delinquent;
-    char user_input[GAME_MAX_RESPONSE_LENGTH] = {'\0'};
+    char user_input[MAX_RESPONSE_LENGTH] = {'\0'};
 
     delinquent.health = 2;
 
@@ -19,8 +46,7 @@ void challenge_physical(void) {
     while (delinquent.health > 0) {
         printf("How do you respond? ");
 
-        util_get_user_input(user_input);
-        util_sanitise_input(user_input);
+        io_get_user_input(user_input);
 
         if (strncmp(user_input, "attack", 6) != 0) {
             continue;
@@ -33,10 +59,12 @@ void challenge_physical(void) {
             printf("\nThe delinquent falls and dies.\n");
         }
     }
+
+    challenge_clear(game);
 }
 
-void challenge_puzzle(void) {
-    char user_input[GAME_MAX_RESPONSE_LENGTH] = {'\0'};
+void challenge_puzzle(struct game *game) {
+    char user_input[MAX_RESPONSE_LENGTH] = {'\0'};
     struct challenge_puzzle puzzle;
     size_t answer;
 
@@ -49,37 +77,12 @@ void challenge_puzzle(void) {
     printf("There is a note on the floor. You pick it up.\n");
     printf("It says, '%u x %u'.\n", puzzle.first, puzzle.second);
 
-    while (util_string_to_size_t(user_input) != answer) {
+    while (string_to_size_t(user_input) != answer) {
         printf("What could it possibly mean? ");
-        util_get_user_input(user_input);
-        util_sanitise_input(user_input);
+        io_get_user_input(user_input);
     }
 
     printf("\nYou write '%s' on the note. Nice.\n", user_input);
-}
 
-void challenge_clear(struct game *game) {
-    size_t i;
-    size_t j;
-
-    for (i = 0; i < FILE_MAX_ROOMS; ++i) {
-        if (game->player.room.room_number != game->rooms[i].room_number) {
-            continue;
-        }
-    
-        for (j = 0; j < FILE_MAX_CHALLENGES_PER_ROOM; ++j) {
-            if (game->rooms[i].challenges[j] != NONE) {
-                game->rooms[i].challenges[j] = NONE;
-                game->player.room.challenges[j] = NONE;
-                break;
-            }
-        }
-    
-        break;
-    }
-
-    if (i == FILE_MAX_ROOMS) {
-        printf("Cannot clear challenge from a room.\n");
-        util_leave();
-    }
+    challenge_clear(game);
 }
