@@ -11,32 +11,9 @@
 #include "player.h"
 #include "io.h"
 
-static void print_help_text(void) {
-    const char *help_text =
-    "Type compass directions to move.\n"
-    "Type 'attack' to attack.\n"
-    "Type numbers to solve puzzles.\n"
-    "Type 'exit', 'leave' or similar to quit.\n";
-
-    printf("%s", help_text);
-}
-
 static void load_game(struct game *game) {
     file_load_config(game);
     game->player.current_room = game->rooms[0];
-}
-
-static void print_initial_instructions(void) {
-    print_help_text();
-    printf("Type 'help' to bring up these instructions (after giving your name).\n\n");
-}
-
-static void print_introductory_text(char *introductory_text) {
-    printf("\n%s\n\n", introductory_text);
-}
-
-static void print_main_loop_message(void) {
-    printf("What would you like to do? ");
 }
 
 static void move_player(struct game *game, enum direction direction) {
@@ -66,7 +43,7 @@ static void move_player(struct game *game, enum direction direction) {
 static void help_check(char *user_input) {
     if (strncmp(user_input, "help", 4) == 0) {
         printf("\n");
-        print_help_text();
+        io_print_help_text();
         return;
     }
 }
@@ -127,7 +104,7 @@ static void play(struct game *game) {
 
 static void main_loop(struct game *game) {
     while (1) {
-        print_main_loop_message();
+        io_print_main_loop_message();
         io_get_user_input(game->user_input);
         play(game);
 
@@ -141,9 +118,9 @@ void game_start(void) {
     static struct game game = {0};
 
     load_game(&game);
-    print_initial_instructions();
+    io_print_initial_instructions();
     player_get_name(game.player.name);
-    print_introductory_text(game.introductory_text);
+    io_print_introductory_text(game.introductory_text);
 
     main_loop(&game);
 }

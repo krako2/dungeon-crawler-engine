@@ -9,6 +9,15 @@
 #include "string.h"
 #include "io.h"
 
+struct challenge_physical {
+    int health;
+};
+
+struct challenge_puzzle {
+    unsigned first;
+    unsigned second;
+};
+
 static void challenge_clear(struct game *game) {
     size_t i;
     size_t j;
