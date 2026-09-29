@@ -121,7 +121,6 @@ static void get_player_name(char *name_output) {
     }
 }
 
-
 void game_start(void) {
     static struct game game = {0};
 
