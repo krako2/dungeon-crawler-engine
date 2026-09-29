@@ -2,13 +2,13 @@
 #include <string.h>
 #include <ctype.h>
 
-#include "shared.h"
-#include "game.h"
+#include "shared.hpp"
+#include "game.hpp"
 
-#include "string.h"
-#include "challenge.h"
-#include "file.h"
-#include "io.h"
+#include "string.hpp"
+#include "challenge.hpp"
+#include "file.hpp"
+#include "io.hpp"
 
 static void load_game(struct game *game) {
     file_load_config(game);

@@ -1,5 +1,5 @@
-#ifndef IO_H
-#define IO_H
+#ifndef IO_HPP
+#define IO_HPP
 
 void io_get_user_input(char *output);
 void io_leave(void);

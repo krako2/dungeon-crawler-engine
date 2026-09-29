@@ -1,9 +1,9 @@
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
-    main.c
-    game.c
-    file.c
-    debug.c
-    challenge.c
-    string.c
-    io.c
+    main.cpp
+    game.cpp
+    file.cpp
+    debug.cpp
+    challenge.cpp
+    string.cpp
+    io.cpp
 )
