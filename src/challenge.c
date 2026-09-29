@@ -18,7 +18,7 @@ struct challenge_puzzle {
     unsigned second;
 };
 
-static void challenge_clear(struct game *game) {
+static void clear_challenge(struct game *game) {
     size_t i;
     size_t j;
 
@@ -69,7 +69,7 @@ void challenge_physical(struct game *game) {
         }
     }
 
-    challenge_clear(game);
+    clear_challenge(game);
 }
 
 void challenge_puzzle(struct game *game) {
@@ -93,5 +93,5 @@ void challenge_puzzle(struct game *game) {
 
     printf("\nYou write '%s' on the note. Nice.\n", user_input);
 
-    challenge_clear(game);
+    clear_challenge(game);
 }
