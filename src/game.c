@@ -8,7 +8,6 @@
 #include "string.h"
 #include "challenge.h"
 #include "file.h"
-#include "player.h"
 #include "io.h"
 
 static void load_game(struct game *game) {
@@ -114,12 +113,21 @@ static void main_loop(struct game *game) {
     }
 }
 
+static void get_player_name(char *name_output) {
+    while (name_output[0] == '\0') {
+        printf("What is your name? ");
+        io_get_user_input(name_output);
+        name_output[0] = string_char_uppercase(name_output[0]);
+    }
+}
+
+
 void game_start(void) {
     static struct game game = {0};
 
     load_game(&game);
     io_print_initial_instructions();
-    player_get_name(game.player.name);
+    get_player_name(game.player.name);
     io_print_introductory_text(game.introductory_text);
 
     main_loop(&game);

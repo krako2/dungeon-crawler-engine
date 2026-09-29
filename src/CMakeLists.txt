@@ -6,5 +6,4 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     challenge.c
     string.c
     io.c
-    player.c
 )
