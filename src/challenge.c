@@ -3,11 +3,11 @@
 #include <string.h>
 #include <time.h>
 
-#include "shared.hpp"
-#include "challenge.hpp"
+#include "shared.h"
+#include "challenge.h"
 
-#include "string.hpp"
-#include "io.hpp"
+#include "string.h"
+#include "io.h"
 
 struct challenge_physical {
     int health;

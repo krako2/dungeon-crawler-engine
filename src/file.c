@@ -2,11 +2,11 @@
 #include <string.h>
 #include <limits.h>
 
-#include "shared.hpp"
-#include "file.hpp"
+#include "shared.h"
+#include "file.h"
 
-#include "string.hpp"
-#include "io.hpp"
+#include "string.h"
+#include "io.h"
 
 struct parse_data {
     size_t room_counter;
@@ -19,7 +19,7 @@ struct parse_data {
 };
 
 static void file_write_template_config_file(FILE *config_file) {
-    const char *file_template =
+    const char *template =
     "[ROOMS]\n"
     "\n"
     "ROOM NUMBER: 100\n"
@@ -44,7 +44,7 @@ static void file_write_template_config_file(FILE *config_file) {
     "\n"
     "You arise from a deep rest. There's a door up north.\n";
 
-    fputs(file_template, config_file);
+    fputs(template, config_file);
 }
 
 static void file_parse_introductory_text(struct parse_data *parse_data, struct game *game) {

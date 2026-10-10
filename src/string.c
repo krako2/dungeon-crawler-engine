@@ -1,7 +1,7 @@
 #include "stddef.h"
 
-#include "shared.hpp"
-#include "string.hpp"
+#include "shared.h"
+#include "string.h"
 
 void string_trim_start(char *text, size_t characters) {
     size_t i = 0;

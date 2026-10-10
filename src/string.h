@@ -1,5 +1,5 @@
-#ifndef STRING_HPP
-#define STRING_HPP
+#ifndef STRING_H
+#define STRING_H
 
 void string_trim_start(char* text, size_t characters);
 size_t string_to_size_t(char* text);

@@ -3,8 +3,8 @@
 #include <string.h>
 #include <ctype.h>
 
-#include "shared.hpp"
-#include "io.hpp"
+#include "shared.h"
+#include "io.h"
 
 static void sanitise_input(char *user_input) {
     size_t read = 0;

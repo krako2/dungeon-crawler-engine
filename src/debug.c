@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-#include "shared.hpp"
-#include "debug.hpp"
+#include "shared.h"
+#include "debug.h"
 
-#include "game.hpp"
+#include "game.h"
 
 void debug_print_all_game_data(struct game *game) {
     size_t i;

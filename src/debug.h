@@ -1,7 +1,7 @@
-#ifndef DEBUG_HPP
-#define DEBUG_HPP
+#ifndef DEBUG_H
+#define DEBUG_H
 
-#include "game.hpp"
+#include "game.h"
 
 void debug_print_all_game_data(struct game *game);
 

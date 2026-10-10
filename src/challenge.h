@@ -1,7 +1,7 @@
-#ifndef CHALLENGE_HPP
-#define CHALLENGE_HPP
+#ifndef CHALLENGE_H
+#define CHALLENGE_H
 
-#include "game.hpp"
+#include "game.h"
 
 void challenge_physical(struct game *game);
 void challenge_puzzle(struct game *game);
