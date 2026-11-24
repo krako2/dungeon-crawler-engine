@@ -123,7 +123,6 @@ static void get_player_name(struct game *game) {
     }
 }
 
-
 void game_start(void) {
     static struct game game = {0};
 
