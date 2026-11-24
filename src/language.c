@@ -4,7 +4,7 @@
 #include "io.h"
 #include "string.h"
 
-void language_ask_for_language(struct game* game) {
+void language_ask_for_language(struct game *game) {
 	puts("Select your language (type the number).");
 	puts("1 - English");
 	puts("2 - Polish");
