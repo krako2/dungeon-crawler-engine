@@ -9,6 +9,7 @@
 #include "challenge.h"
 #include "file.h"
 #include "io.h"
+#include "debug.h"
 
 static void load_game(struct game *game) {
     file_load_config(game);

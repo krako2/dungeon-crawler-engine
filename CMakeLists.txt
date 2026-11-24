@@ -7,12 +7,9 @@ project(dungeon-crawler
 
 if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
     add_compile_options(
-        -ansi
-        -Weverything
-        -Werror
-        -Wno-unsafe-buffer-usage
-        -Wno-covered-switch-default
-        -Wno-missing-noreturn
+        -Wall
+        -Wextra
+        -Wpedantic
     )
 endif()
 
@@ -21,8 +18,11 @@ if(CMAKE_C_COMPILER_ID STREQUAL "GNU")
         -Wall
         -Wextra
         -Wpedantic
-        -Werror
     )
+endif()
+
+if(MSVC)
+    add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
 endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
