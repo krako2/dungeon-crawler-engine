@@ -17,7 +17,12 @@ if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
 endif()
 
 if(CMAKE_C_COMPILER_ID STREQUAL "GNU")
-    message(FATAL_ERROR "Please use Clang to compile this program.")
+    add_compile_options(
+        -Wall
+        -Wextra
+        -Wpedantic
+        -Werror
+    )
 endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
@@ -30,7 +35,11 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
-    add_compile_options(-O3)
+    if(MSVC)
+        add_compile_options(/Ox)
+    else()
+        add_compile_options(-O3)
+    endif()
 endif()
 
 set(CMAKE_C_STANDARD 90)
