@@ -3,11 +3,6 @@
 
 #include "shared.h"
 
-enum language {
-    ENGLISH,
-    POLISH,
-};
-
 void language_ask_for_language(struct game *game);
 const char* language_main_loop_prompt(enum language language);
 

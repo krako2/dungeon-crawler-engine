@@ -9,10 +9,15 @@
 #define MAX_FILE_LINE_LENGTH 203
 #define CONFIG_FILE_NAME "config.txt"
 
+enum language {
+    ENGLISH,
+    POLISH
+};
+
 enum challenge {
     NONE,
     PHYSICAL,
-    PUZZLE,
+    PUZZLE
 };
 
 enum direction {
