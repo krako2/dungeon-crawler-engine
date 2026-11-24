@@ -42,7 +42,6 @@ unsigned string_to_unsigned(char *text) {
         }
 
         ++i;
-        
     }
 
     return value;
