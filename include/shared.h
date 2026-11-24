@@ -12,7 +12,7 @@
 enum challenge {
     NONE,
     PHYSICAL,
-    PUZZLE
+    PUZZLE,
 };
 
 enum direction {
@@ -39,6 +39,7 @@ struct game {
     struct room rooms[MAX_ROOMS];
     char introductory_text[INTRO_TEXT_MAX_LENGTH];
     char user_input[MAX_RESPONSE_LENGTH];
+    enum language language;
 };
 
 #endif

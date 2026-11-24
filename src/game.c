@@ -10,6 +10,7 @@
 #include "file.h"
 #include "io.h"
 #include "debug.h"
+#include "language.h"
 
 static void load_game(struct game *game) {
     file_load_config(game);
@@ -104,7 +105,7 @@ static void play(struct game *game) {
 
 static void main_loop(struct game *game) {
     while (1) {
-        io_print_main_loop_message();
+        printf(language_main_loop_prompt(game->language));
         io_get_user_input(game->user_input);
         play(game);
 
@@ -114,11 +115,11 @@ static void main_loop(struct game *game) {
     }
 }
 
-static void get_player_name(char *name_output) {
-    while (name_output[0] == '\0') {
+static void get_player_name(struct game *game) {
+    while (game->player.name[0] == '\0') {
         printf("What is your name? ");
-        io_get_user_input(name_output);
-        name_output[0] = string_char_uppercase(name_output[0]);
+        io_get_user_input(game->player.name);
+        game->player.name[0] = string_char_uppercase(game->player.name[0]);
     }
 }
 
@@ -127,8 +128,9 @@ void game_start(void) {
     static struct game game = {0};
 
     load_game(&game);
+    language_ask_for_language(&game);
     io_print_initial_instructions();
-    get_player_name(game.player.name);
+    get_player_name(&game);
     io_print_introductory_text(game.introductory_text);
 
     main_loop(&game);

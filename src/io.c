@@ -87,7 +87,3 @@ void io_print_initial_instructions(void) {
     io_print_help_text();
     printf("Type 'help' to bring up these instructions (after giving your name).\n\n");
 }
-
-void io_print_main_loop_message(void) {
-    printf("What would you like to do? ");
-}
