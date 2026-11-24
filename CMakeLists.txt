@@ -6,6 +6,7 @@ project(dungeon-crawler
 )
 
 if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
+    add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
     add_compile_options(
         -Wall
         -Wextra
@@ -28,7 +29,7 @@ endif()
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_compile_definitions(DEBUG)
     if(MSVC)
-        add_compile_options(/Z7)
+        add_compile_options(/Zi)
     else()
         add_compile_options(-g)
     endif()
