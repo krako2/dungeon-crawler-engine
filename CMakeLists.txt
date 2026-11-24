@@ -21,8 +21,12 @@ if(CMAKE_C_COMPILER_ID STREQUAL "GNU")
 endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    add_compile_options(-g)
     add_compile_definitions(DEBUG)
+    if(NOT MSVC)
+        add_compile_options(-g)
+    else()
+        add_compile_options(/Z7)
+    endif()
 endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
