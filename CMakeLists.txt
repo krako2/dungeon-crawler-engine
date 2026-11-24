@@ -22,10 +22,10 @@ endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_compile_definitions(DEBUG)
-    if(NOT MSVC)
-        add_compile_options(-g)
-    else()
+    if(MSVC)
         add_compile_options(/Z7)
+    else()
+        add_compile_options(-g)
     endif()
 endif()
 
