@@ -16,7 +16,7 @@ void language_ask_for_language(struct game* game) {
 	game->language = string_to_unsigned(game->user_input) - 1;
 }
 
-const char* language_main_loop_prompt(enum language language) {
+const char *language_main_loop_prompt(enum language language) {
 	switch (language) {
 	case POLISH:
 		return "Co chcesz? ";
