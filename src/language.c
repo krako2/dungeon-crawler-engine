@@ -11,7 +11,8 @@ void language_ask_for_language(struct game* game) {
 	io_get_user_input(game->user_input);
 
 	/* will select the 4,294,967,296th langauge if the user enters 0
-	it will also be impossible to select the 4,294,967,296th language */
+	it will also be impossible to select the 4,294,967,296th language
+	by literally typing the number 4294967296 */
 	game->language = string_to_unsigned(game->user_input) - 1;
 }
 
